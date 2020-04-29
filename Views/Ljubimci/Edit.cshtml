@@ -1,0 +1,71 @@
+﻿@model PetApp.Models.Ljubimac
+
+@{
+    ViewData["Title"] = "Uredi podatke";
+}
+
+<h1>Uredi podatke</h1>
+
+<h4>Ljubimac</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="Edit" asp-controller="Ljubimci" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Ime" class="control-label"></label>
+                <input asp-for="Ime" class="form-control" />
+                <span asp-validation-for="Ime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Opis" class="control-label"></label>
+                <input asp-for="Opis" class="form-control" />
+                <span asp-validation-for="Opis" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SklonisteId" class="control-label"></label>
+                <select asp-for="SklonisteId" class="form-control" asp-items="ViewBag.SkloništeId"></select>
+                <span asp-validation-for="SklonisteId" class="text-danger"></span>
+            </div>
+            <p> Paziti na podudarnost skloništa i lokacije!</p>
+            <div class="form-group">
+                <label asp-for="Mjesto" class="control-label"></label>
+                <select asp-for="Mjesto" class="form-control" asp-items="ViewBag.SkloništeNaziv"></select>
+                <span asp-validation-for="Mjesto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vrsta" class="control-label"></label>
+                <select asp-for="Vrsta" class="form-control" asp-items="ViewBag.Vrsta"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Godine" class="control-label"></label>
+                <input asp-for="Godine" class="form-control" />
+                <span asp-validation-for="Godine" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Grad" class="control-label"></label>
+                <input asp-for="Grad" class="form-control" />
+                <span asp-validation-for="Grad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Slika" class="control-label"></label>
+                <input asp-for="Slika" class="form-control" />
+                <span asp-validation-for="Slika" class="text-danger"></span>
+            </div>  <div class="form-group">
+                <label asp-for="Slika" class="control-label"></label>
+                <input type="file" name="files" multiple />
+                <span asp-validation-for="Slika" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Natrag na popis</a>
+</div>
+

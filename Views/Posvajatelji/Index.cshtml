@@ -1,0 +1,96 @@
+﻿@model IEnumerable<PetApp.Models.Posvajatelj>
+
+@{
+    ViewData["Title"] = "Prijaveg za posvajanje";
+}
+
+<h1>Prijave za posvajanje</h1>
+
+<p>
+    <input onMouseOver="this.style.color='#8ea0d1'"
+           onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;" type="button" title="Kreiraj posvajatelja" value="Kreiraj posvajatelja" onclick="location.href='@Url.Action("Create", "Posvajatelji")'" />
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prezime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mjesto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Datum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrMob)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ljubimac)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prezime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mjesto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrMob)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ljubimac.Ime)
+                </td>
+                <td>
+                    <input onMouseOver="this.style.color='#8ea0d1'"
+                           onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;" type="button" title="Uredi podatke" value="Uredi podatke" onclick="location.href='@Url.Action("Edit", "Posvajatelji", new { id = item.Id })'" />
+
+                    <input onMouseOver="this.style.color='#8ea0d1'"
+                           onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;" type="button" title="Izbriši" value="Izbriši" onclick="location.href='@Url.Action("Delete", "Posvajatelji", new { id = item.Id })'" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

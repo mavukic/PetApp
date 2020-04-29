@@ -1,0 +1,158 @@
+﻿@model PetApp.Models.UdrugaView
+
+
+
+<h2>Udruge</h2>
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>
+        <input onMouseOver="this.style.color='#8ea0d1'"
+               onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;" type="button" title="Kreiraj udrugu" value="Kreiraj udrugu" onclick="location.href='@Url.Action("Create", "Udruge")'" />
+    </p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Adresa</th>
+            <th>Grad</th>
+            <th>Tel</th>
+            <th>Email</th>
+            <th>Web</th>
+            <th>Novosti</th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Udruge)
+        {
+            string selectedRow = "";
+            if (item.Id == (int?)ViewData["UdrugaID"])
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adresa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    <a href="@item.Web">@item.Web</a>
+                </td>
+
+                <td>
+                    @{
+                        foreach (var post in item.PostsUdruge)
+                        {
+                            @post.Udruga.Id @:  @post.Udruga.Naziv <br />
+                        }
+                    }
+                </td>
+                <td>
+                    <input onMouseOver="this.style.color='#8ea0d1'"
+                           onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;" type="button" title="Pogledaj objave" value="Pogledaj objave" onclick="location.href='@Url.Action("Index", "Udruge", new { id = item.Id })'" />
+                    <br/><br/>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <input onMouseOver="this.style.color='#8ea0d1'"
+                               onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;" type="button" title="Uredi podatke" value="Uredi podatke" onclick="location.href='@Url.Action("Edit", "Udruge", new { id = item.Id })'" />
+                        <br /> <br />
+                    }
+                    <br />
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <input onMouseOver="this.style.color='#8ea0d1'"
+                               onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;" type="button" title="Izbriši" value="Izbriši" onclick="location.href='@Url.Action("Delete", "Udruge", new { id = item.Id })'" />
+                        <br /> <br />
+                    }
+                    <br />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (Model.PostUdruge != null)
+{
+    <h3>Novosti iz ove udruge</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Naslov</th>
+            <th>Datum</th>
+
+        </tr>
+
+        @foreach (var item in Model.PostUdruge)
+        {
+            string selectedRow = "";
+            if (item.Id == (int?)ViewData["PostID"])
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    <input onMouseOver="this.style.color='#8ea0d1'"
+                           onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;" type="button" title="Odaberi" value="Odaberi" onclick="location.href='@Url.Action("Details", "PostUdruge", new { id = item.Id })'" />
+                    <br />       <br />
+                </td>
+                <td>
+                    @item.Naziv
+                </td>
+
+                <td>
+                    @item.Datum
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+

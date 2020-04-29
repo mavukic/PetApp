@@ -1,0 +1,45 @@
+﻿@model PetApp.Models.PostUdruge
+
+@{
+    ViewData["Title"] = "Izbriši";
+}
+
+<h1>Izbriši/h1>
+
+<h3>Jeste li sigurni da želite ovo izbrisati?</h3>
+<div>
+    <h4>Objave udruga</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Naziv)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Naziv)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Datum)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Datum)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Udruga)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Udruga.Adresa)
+        </dd class>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Izbriši" class="btn btn-danger" /> |
+        <a asp-action="Index">Natrag na popis</a>
+    </form>
+</div>

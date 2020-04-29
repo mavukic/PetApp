@@ -1,0 +1,87 @@
+﻿@model IEnumerable<PetApp.Models.Ljubimac>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Životinje koje je moguće posvojiti</h1>
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Datum)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Mjesto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vrsta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Godine)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Slika)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Opis)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mjesto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vrsta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Godine)
+                </td>
+                @{ if (item.Slika != null)
+                    {
+                        <td>
+                            <img src="~/slike/@item.Slika" width="150" height="150" />
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            Još nema sliku
+                        </td>
+                    }
+                }
+                <td>
+
+                    <a asp-controller="Posvajatelji" asp-action="Create">Posvoji</a>
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

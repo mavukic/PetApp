@@ -26,7 +26,6 @@
             <th>Tel</th>
             <th>Email</th>
             <th>Web</th>
-            <th>Novosti</th>
 
             <th></th>
         </tr>
@@ -60,14 +59,6 @@
                 </td>
 
                 <td>
-                    @{
-                        foreach (var post in item.PostsUdruge)
-                        {
-                            @post.Udruga.Id @:  @post.Udruga.Naziv <br />
-                        }
-                    }
-                </td>
-                <td>
                     <input onMouseOver="this.style.color='#8ea0d1'"
                            onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
   border: none;
@@ -76,7 +67,7 @@
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 15px;" type="button" title="Pogledaj objave" value="Pogledaj objave" onclick="location.href='@Url.Action("Index", "Udruge", new { id = item.Id })'" />
+  font-size: 15px;" type="button" title="Pogledaj objave" value="Pogledaj objave" onclick="location.href='@Url.Action("PostoviUdruge", "Udruge", new { id = item.Id })'" />
                     <br/><br/>
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
@@ -112,47 +103,4 @@
         }
     </tbody>
 </table>
-@if (Model.PostUdruge != null)
-{
-    <h3>Novosti iz ove udruge</h3>
-    <table class="table">
-        <tr>
-            <th></th>
-            <th>Naslov</th>
-            <th>Datum</th>
-
-        </tr>
-
-        @foreach (var item in Model.PostUdruge)
-        {
-            string selectedRow = "";
-            if (item.Id == (int?)ViewData["PostID"])
-            {
-                selectedRow = "success";
-            }
-            <tr class="@selectedRow">
-                <td>
-                    <input onMouseOver="this.style.color='#8ea0d1'"
-                           onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;" type="button" title="Odaberi" value="Odaberi" onclick="location.href='@Url.Action("Details", "PostUdruge", new { id = item.Id })'" />
-                    <br />       <br />
-                </td>
-                <td>
-                    @item.Naziv
-                </td>
-
-                <td>
-                    @item.Datum
-                </td>
-            </tr>
-        }
-
-    </table>
-}
 

@@ -18,6 +18,7 @@ namespace PetApp.Models
         public String Ime { get; set; }
 
         [MaxLength(150, ErrorMessage = "Previše zankova")]
+        [DataType(DataType.MultilineText)]
         public String Opis { get; set; }
 
         [DataType(DataType.Date)]

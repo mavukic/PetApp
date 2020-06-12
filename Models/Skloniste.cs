@@ -26,14 +26,13 @@ namespace PetApp.Models
         public String Grad { get; set; }
 
         [DisplayName("Broj mobitela ili telefona")]
-        [System.ComponentModel.DataAnnotations.RegularExpression("^[0-9]+$", ErrorMessage = "Broj mobitela/telefona mora sadržavati samo brojeve")]
+        [RegularExpression("^[0-9]+$", ErrorMessage = "Broj mobitela/telefona mora sadržavati samo brojeve")]
         public String Tel { get; set; }
 
         [DataType(DataType.EmailAddress, ErrorMessage = "Upišite email")]
         public String Email { get; set; }
-
-        [Url(ErrorMessage = "Unesite valjanu web stranicu, web stranica mora poceti sa http:// ili https:// ili ftp://")]
-        public String Web { get; set; }
+ [RegularExpression("@(http://)?(www\\.)?\\w+\\.(com|net|edu|org|hr)", ErrorMessage = "Upisite web stranicu, mora počinjati sa http:// ili slično")]
+ public String Web { get; set; }
         public ICollection<PostSklonista> PostsSklonista { get; set; }
         public ICollection<Ljubimac> Ljubimac { get; set; }
     }

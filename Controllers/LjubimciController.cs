@@ -18,19 +18,19 @@ namespace PetApp.Controllers
     {
         private readonly ApplicationDbContext _context;
         private IHostingEnvironment _environment;
-        public LjubimciController(ApplicationDbContext context, IHostingEnvironment environment)
+        public LjubimciController(ApplicationDbContext context,
+                                  IHostingEnvironment environment)
+
         {
             _environment = environment;
             _context = context;
         }
 
-        // GET: Ljubimci
         List<Ljubimac> CheckForAdopterAndShelter()
         {
             var list = new List<Ljubimac>();
             var listpos = new List<Posvajatelj>();
             var listlj = new List<Ljubimac>();
-
 
             foreach (var d in _context.Ljubimac)
             {
@@ -66,7 +66,8 @@ namespace PetApp.Controllers
         }
 
 
-        public async Task<IActionResult> Index(String searchString, string SearchString2, int SearchString3, String SearchString4)
+        public async Task<IActionResult> Index(String searchString, 
+            string SearchString2, int SearchString3, String SearchString4)
         {
 
             _context.Ljubimac.Include(l => l.Skloniste);
@@ -89,10 +90,10 @@ namespace PetApp.Controllers
             }
             _context.Ljubimac.Include(l => l.Grad);
             var listgradova = from d in _context.Ljubimac
-                            
+
                               select d;
             var listagradova2 = new List<String>();
-            foreach(var f in listgradova)
+            foreach (var f in listgradova)
             {
                 if (!listagradova2.Contains(f.Grad))
                     listagradova2.Add(f.Grad);
@@ -107,7 +108,7 @@ namespace PetApp.Controllers
                 if (d.Grad == SearchString4)
                 {
                     var list = new List<Ljubimac>();
-                        list.Add(d);
+                    list.Add(d);
 
                     return View(list);
                 }
@@ -158,18 +159,9 @@ namespace PetApp.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Izgubljeni(String searchString, String SearchString2,String SearchString4)
+        public async Task<IActionResult> Izgubljeni(String searchString, String SearchString2, String SearchString4)
         {
 
-
-            var ljubimcisearch = from m in _context.Ljubimac
-                                 select m;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                ljubimcisearch = ljubimcisearch.Where(s => s.Mjesto.Contains(searchString));
-                return View(ljubimcisearch.ToList());
-            }
             _context.Ljubimac.Include(l => l.Grad);
             var listgradova = from d in _context.Ljubimac
 
@@ -184,22 +176,19 @@ namespace PetApp.Controllers
             ViewData["Gradovi"] = g;
             SearchString4 = (String)g.SelectedValue;
 
-
             foreach (var d in _context.Ljubimac)
             {
-                if (d.Grad == SearchString4&&d.SklonisteId==null)
+                if (d.Grad == SearchString4 && d.SklonisteId == null)
                 {
                     var list = new List<Ljubimac>();
                     list.Add(d);
-
-                    return View(list);
+                    if (list.Count != 0)
+                        return View(list);
                 }
             }
             var applicationDbContext = _context.Ljubimac.Include(l => l.Skloniste).Where(l => l.SklonisteId == null);
             return View(await applicationDbContext.ToListAsync());
         }
-        // GET: Ljubimci/Details/5
-
 
         // GET: Ljubimci/Create
 

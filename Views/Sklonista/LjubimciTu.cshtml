@@ -4,13 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Životinje koje je moguće posvojiti</h1>
-@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-{
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-}
+<h1>Životinje u našem skloništu</h1>
+<p>Da bi ste posvojili jednu od naših životinja, kliknite na posvoji u navigacijskoj traci, te ju potražite na popisu </p>
 <table class="table">
     <thead>
         <tr>
@@ -75,12 +70,7 @@
                         </td>
                     }
                 }
-                <td>
 
-                    <a asp-controller="Posvajatelji" asp-action="Create">Posvoji</a>
-
-
-                </td>
             </tr>
         }
     </tbody>

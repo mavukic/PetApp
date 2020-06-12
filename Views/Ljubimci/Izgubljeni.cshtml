@@ -8,147 +8,134 @@
 
 <p>
     <a asp-action="Create">Dodaj ljubimca</a>
-</p><table class="table">
+</p>
+<table class="table">
     <thead>
         <tr>
-            <th>
-                <form asp-controller="Ljubimci" asp-action="Izgubljeni">
-                    <p>
-                        Pretraživanje po lokaciji: <input style="  border-radius: 25px;" type="text" name="SearchString">
-                        <input onMouseOver="this.style.color='#8ea0d1'"
-                               onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;" type="submit" value="Filter" />
-                    </p>
 
-
-                </form></th>
             <th>
                 <form asp-controller="Ljubimci" asp-action="Izgubljeni">
                     <p>
 
-                        Pregledaj po gradu:  <select style="  border-radius: 25px;" name="SearchString4" asp-items="ViewBag.Gradovi">
+                        Pregledaj po gradu:  <select style="  border-radius: 4px;" name="SearchString4" asp-items="ViewBag.Gradovi">
                             <option name="SearchString4" value="">Svi gradovi</option>
                         </select>
 
                         <input onMouseOver="this.style.color='#8ea0d1'"
                                onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;" type="submit" value="Filter" />
+                                  border: none;
+                                  color: white;
+                                  padding: 10px 15px;
+                                  text-align: center;
+                                  text-decoration: none;
+                                  display: inline-block;
+                                  font-size: 15px;" type="submit" value="Filter" />
                     </p>
                 </form>
             </th>
-            </tr>
-        </table>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Ime)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Opis)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Datum)
-                            </th>
+        </tr>
+</table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Opis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Datum)
+            </th>
 
-                            <th>
-                                @Html.DisplayNameFor(model => model.Mjesto)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Vrsta)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Godine)
-                            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mjesto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vrsta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Godine)
+            </th>
 
-                            <th>
-                                @Html.DisplayNameFor(model => model.Slika)
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
+            <th>
+                @Html.DisplayNameFor(model => model.Slika)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Opis)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datum)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mjesto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vrsta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Godine)
+                </td>
+
+                @{ if (item.Slika != null)
+                    {
+                        <td>
+                            <img src="~/slike/@item.Slika" width="150" height="150" />
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            Još nema sliku
+                        </td>
+                    }
+
+                }
+                <td>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <input onMouseOver="this.style.color='#8ea0d1'"
+                               onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
+                              border: none;
+                              color: white;
+                              padding: 10px 15px;
+                              text-align: center;
+                              text-decoration: none;
+                              display: inline-block;
+                              font-size: 15px;" type="button" title="Uredi podatke" value="Uredi podatke"
+                              onclick="location.href='@Url.Action("Edit", "Ljubimci", new { id = item.Id })'" />
+                    }<br /><br />
+
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Ime)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Opis)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Datum)
-                                </td>
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Mjesto)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Vrsta)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Godine)
-                                </td>
-
-                                @{ if (item.Slika != null)
-                                    {
-                                        <td>
-                                            <img src="~/slike/@item.Slika" width="150" height="150" />
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td>
-                                            Još nema sliku
-                                        </td>
-                                    }
-
-                                }
-                                <td>
-                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                                    {
-                                        <input onMouseOver="this.style.color='#8ea0d1'"
-                                               onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;" type="button" title="Uredi podatke" value="Uredi podatke" onclick="location.href='@Url.Action("Edit", "Ljubimci", new { id = item.Id })'" />
-                                    }<br /><br />
-
-
-                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                                    {
-                                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                                        {
-                                            <input onMouseOver="this.style.color='#8ea0d1'"
-                                                   onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;" type="button" title="Izbriši" value="Izbriši" onclick="location.href='@Url.Action("Delete", "Ljubimci", new { id = item.Id })'" />
-                                        }<br /><br />
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                            <input onMouseOver="this.style.color='#8ea0d1'"
+                                   onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
+                                  border: none;
+                                  color: white;
+                                  padding: 10px 15px;
+                                  text-align: center;
+                                  text-decoration: none;
+                                  display: inline-block;
+                                  font-size: 15px;" type="button" title="Izbriši" value="Izbriši" 
+                                   onclick="location.href='@Url.Action("Delete", "Ljubimci", new { id = item.Id })'" />
+                        }<br /><br />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

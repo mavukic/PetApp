@@ -32,7 +32,7 @@ namespace PetApp.Models
         [DataType(System.ComponentModel.DataAnnotations.DataType.EmailAddress, ErrorMessage = "Upišite email")]
         public String Email { get; set; }
 
-        [Url(ErrorMessage = "Unesite valjanu web stranicu, web stranica mora poceti sa http:// ili https:// ili ftp://")]
+        [RegularExpression("@(http://)?(www\\.)?\\w+\\.(com|net|edu|org|hr)", ErrorMessage = "Upisite web stranicu, mora počinjati sa http:// ili slično")]
         public String Web { get; set; }
         public ICollection<PostUdruge> PostsUdruge { get; set; }
     }

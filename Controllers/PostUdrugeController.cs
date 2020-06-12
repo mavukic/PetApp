@@ -21,10 +21,20 @@ namespace PetApp.Controllers
         }
 
         // GET: PostUdruge
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
             var applicationDbContext = _context.PostUdruge.Include(p => p.Udruga);
-            return View(await applicationDbContext.ToListAsync());
+            var postUdruge =  _context.PostUdruge
+            .Include(p => p.Udruga)
+            .Where(p=>p.Id==id);
+            if (id == null)
+            {
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else
+            {
+                return View(await postUdruge.ToListAsync());
+            }
         }
 
         // GET: PostUdruge/Details/5

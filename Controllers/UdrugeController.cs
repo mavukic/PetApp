@@ -21,7 +21,19 @@ namespace PetApp.Controllers
         }
 
         // GET: Udruge
-        public async Task<IActionResult> Index(int? id, int? postID)
+        public async Task<IActionResult> Index()
+        {
+            var viewModel = new UdrugaView();
+            viewModel.Udruge = await _context.Udruga
+                  .Include(i => i.PostsUdruge)
+
+                  .AsNoTracking()
+                  .OrderBy(i => i.Naziv)
+                  .ToListAsync();
+
+            return View(viewModel);
+        }
+        public async Task<IActionResult> PostoviUdruge(int? id, int? postID)
         {
             var viewModel = new UdrugaView();
             viewModel.Udruge = await _context.Udruga

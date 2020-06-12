@@ -13,7 +13,8 @@
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 15px;" type="button" title="Kreiraj sklonište" value="Kreiraj sklonište" onclick="location.href='@Url.Action("Create", "Sklonista")'" />
+  font-size: 15px;" type="button" title="Kreiraj sklonište" value="Kreiraj sklonište" 
+           onclick="location.href='@Url.Action("Create", "Sklonista")'" />
 }
 <table class="table">
     <thead>
@@ -24,7 +25,7 @@
             <th>Tel</th>
             <th>Email</th>
             <th>Web</th>
-            <th>Novosti</th>
+    
 
             <th></th>
         </tr>
@@ -58,57 +59,53 @@
                 </td>
 
                 <td>
-                    @{
-                        foreach (var post in item.PostsSklonista)
-                        {
-                            @post.Skloniste.Id @:  @post.Skloniste.Naziv <br />
-                        }
-                    }
-                </td>
-                <td>
                     <input onMouseOver="this.style.color='#8ea0d1'"
                            onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;" type="button" title="Pogledaj objave" value="Pogledaj objave" onclick="location.href='@Url.Action("Index", "Sklonista", new { id = item.Id })'" />
+                          border: none;
+                          color: white;
+                          padding: 10px 15px;
+                          text-align: center;
+                          text-decoration: none;
+                          display: inline-block;
+                            font-size: 15px;" type="button" title="Pogledaj objave" value="Pogledaj objave" 
+                           onclick="location.href='@Url.Action("PostoviSklonista", "Sklonista", new { id = item.Id })'" />
                     <br /><br />
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <input onMouseOver="this.style.color='#8ea0d1'"
                                onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;" type="button" title="Uredi podatke" value="Uredi podatke" onclick="location.href='@Url.Action("Edit", "Sklonista", new { id = item.Id })'" />
+                              border: none;
+                              color: white;
+                              padding: 10px 15px;
+                              text-align: center;
+                              text-decoration: none;
+                              display: inline-block;
+                              font-size: 15px;" type="button" title="Uredi podatke" value="Uredi podatke" 
+                               onclick="location.href='@Url.Action("Edit", "Sklonista", new { id = item.Id })'" />
                     }<br />       <br />
                     <input onMouseOver="this.style.color='#8ea0d1'"
                            onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;" type="button" title="Naši ljubimci" value="Naši ljubimci" onclick="location.href='@Url.Action("LjubimciTu", "Sklonista", new { id = item.Id })'" />
+                          border: none;
+                          color: white;
+                          padding: 10px 15px;
+                          text-align: center;
+                          text-decoration: none;
+                          display: inline-block;
+                           font-size: 15px;" type="button" title="Naši ljubimci" value="Naši ljubimci" 
+                           onclick="location.href='@Url.Action("LjubimciTu", "Sklonista", new { id = item.Id })'" />
                     <br />       <br />
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <input onMouseOver="this.style.color='#8ea0d1'"
                                onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;" type="button" title="Izbriši" value="Izbriši" onclick="location.href='@Url.Action("Delete", "Sklonista", new { id = item.Id })'" />
+                              border: none;
+                              color: white;
+                              padding: 10px 15px;
+                              text-align: center;
+                              text-decoration: none;
+                              display: inline-block;
+                              font-size: 15px;" type="button" title="Izbriši" value="Izbriši" 
+                               onclick="location.href='@Url.Action("Delete", "Sklonista", new { id = item.Id })'" />
 
                     }
                 </td>
@@ -116,46 +113,3 @@
         }
     </tbody>
 </table>
-@if (Model.PostSklonista != null)
-{
-    <h3>Novosti iz ove udruge</h3>
-    <table class="table">
-        <tr>
-            <th></th>
-            <th>Naslov</th>
-
-            <th>Datum</th>
-        </tr>
-
-        @foreach (var item in Model.PostSklonista)
-        {
-            string selectedRow = "";
-            if (item.Id == (int?)ViewData["PostID"])
-            {
-                selectedRow = "success";
-            }
-            <tr class="@selectedRow">
-                <td>
-                    <input onMouseOver="this.style.color='#8ea0d1'"
-                           onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;" type="button" title="Odaberi" value="Odaberi" onclick="location.href='@Url.Action("Details", "PostSklonista", new { id = item.Id })'" />
-                </td>
-                <td>
-                    @item.Naziv
-                </td>
-
-                <td>
-                    @item.Datum
-                </td>
-            </tr>
-        }
-
-    </table>
-}
-

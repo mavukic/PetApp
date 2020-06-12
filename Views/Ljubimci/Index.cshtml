@@ -20,7 +20,7 @@
     </p>
     <form asp-controller="Ljubimci" asp-action="Index">
         <p>
-            Ime ljubimca: <input style="  border-radius: 25px;" type="text" name="SearchString">
+            Ime ljubimca: <input style="  border-radius: 4px;" type="text" name="SearchString">
             <input onMouseOver="this.style.color='#8ea0d1'"
                    onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
   border: none;
@@ -41,7 +41,7 @@
             <th>
                 <form asp-controller="Ljubimci" asp-action="Index" method="get">
                     <p>
-                        Pretraži: <input style="  border-radius: 25px;" type="text" name="SearchString2">
+                        Pretraži: <input style="  border-radius: 4px;" type="text" name="SearchString2">
                         <input onMouseOver="this.style.color='#8ea0d1'"
                                onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
   border: none;
@@ -57,7 +57,7 @@
                 <form asp-action="Index" method="get">
                     <p>
 
-                        Pregledaj po skloništu:  <select style="  border-radius: 25px;" name="SearchString3" asp-items="ViewBag.SkloništeId">
+                        Pregledaj po skloništu:  <select style="  border-radius: 4px;" name="SearchString3" asp-items="ViewBag.SkloništeId">
                             <option name="SearchString3" value="">Sva skloništa</option>
                         </select>
 
@@ -77,7 +77,7 @@
     <form asp-action="Index" method="get">
         <p>
          
-            Pregledaj po gradu:  <select style="  border-radius: 25px;" name="SearchString4" asp-items="ViewBag.Gradovi">
+            Pregledaj po gradu:  <select style="  border-radius: 4px;" name="SearchString4" asp-items="ViewBag.Gradovi">
                 <option name="SearchString4" value="">Svi gradovi</option>
             </select>
 

@@ -22,7 +22,7 @@ namespace WebApplication12.Controllers
         }
 
         // GET: Skloništa
-        public async Task<IActionResult> Index(int? id, int? postID)
+        public async Task<IActionResult> Index()
         {
             var viewModel = new SklonisteView();
             viewModel.Sklonista = await _context.Skloniste
@@ -30,6 +30,21 @@ namespace WebApplication12.Controllers
 
                   .AsNoTracking()
                  
+                  .ToListAsync();
+
+         
+
+
+            return View(viewModel);
+        }
+        public async Task<IActionResult> PostoviSklonista(int? id, int? postID)
+        {
+            var viewModel = new SklonisteView();
+            viewModel.Sklonista = await _context.Skloniste
+                  .Include(i => i.PostsSklonista)
+
+                  .AsNoTracking()
+
                   .ToListAsync();
 
             if (id != null)

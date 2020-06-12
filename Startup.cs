@@ -78,8 +78,11 @@ namespace PetApp
             //Assign Admin role to the main User here we have given our newly registered 
             //login id for Admin management
             IdentityUser user = await UserManager.FindByEmailAsync("hrabrenjuske@gmail.com");
-            var User = new IdentityUser();
-            await UserManager.AddToRoleAsync(user, "Admin");
+            //var User = new IdentityUser();
+            if (user != null)
+            {
+                await UserManager.AddToRoleAsync(user, "Admin");
+            }
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)

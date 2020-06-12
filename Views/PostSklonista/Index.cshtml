@@ -1,97 +1,117 @@
-﻿@model IEnumerable<PetApp.Models.PostSklonista>
+﻿
+@model IEnumerable<PetApp.Models.PostSklonista>
 
 @{
-    ViewData["Title"] = "Objave skloništa";
+    ViewData["Title"] = "Objave udruga";
 }
+<style>
+    input {
+        border: none;
+        color: black;
+        padding: 10px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        background-color: dodgerblue;
+    }
+
+    .column {
+        float: left;
+        width: 33.33%;
+        padding: 50px;
+        text-align: center;
+        font-size: 25px;
+        cursor: pointer;
+        color: white;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    .containerTab {
+        padding: 20px;
+        color: white;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    /* Closable button inside the container tab */
+    .closebtn {
+        float: right;
+        color: black;
+        font-size: 35px;
+        cursor: pointer;
+    }
+</style>
+<script>
+    function openTab(tabName) {
+        var i, x;
+        x = document.getElementsByClassName("containerTab");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        document.getElementById(tabName).style.display = "block";
+
+    }
+</script>
+
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
-    <p style="text-align:center;">
-        <input onMouseOver="this.style.color='#8ea0d1'"
-               onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;" type="button" title="Kreiraj objavu" value="Kreiraj objavu" onclick="location.href='@Url.Action("Create", "PostSklonista")'" />
-    </p>}
-<div class="table" style="display:block;margin-top:30px;margin-bottom:30px;">
-
-
+    <input onMouseOver="this.style.color='#8ea0d1'"
+           onMouseOut="this.style.color='white'"
+           type="button" title="Dodaj objavu"
+           value="Dodaj objavu"
+           onclick="location.href='@Url.Action("Create", "PostSklonista")'" />
+}<div class="row">
     @foreach (var item in Model)
     {
-        <div>
-            <div style="background-color:#dde2f0;text-align:center;font-size:50px; ">
-                @Html.DisplayFor(modelItem => item.Naziv)
-            </div>
+
+
+        <div class="column" onMouseOver="this.innerText = 'Pogledaj objavu'
+    " onMouseout="this.innerText= '@Html.DisplayFor(modelItem => item.Naziv)'"
+             onclick="openTab(@item.Id);" style="background-color:#f7fafa;color:black;">
+            @Html.DisplayFor(modelItem => item.Naziv)
         </div>
-        <br />
-        <br />
 
-        <div>
-            <div style="background-color:#ccd4e8;display:block;padding-top:10px;text-align:center;font-size:25px;margin-bottom:100px">
-                @Html.Raw(item.Content)
-            </div>
-        </div>
-        <div>
-            <div style="        text-align: center;
-                 block;
-                 padding-left: 50px;
-                 padding-right: 50px;
-                 margin-top: 250px;
-                 margin-bottom: 0px;
-                 text-align: center>
-                ">
-                <div style="text-align:center;">
-                    @Html.DisplayFor(modelItem => item.Datum)
-                </div>
-                <div style="text-align:center;padding-left:50px;padding-right:50px;">
+        <div id="@item.Id" class="containerTab" style="display:none;background:white;color:black;">
 
-                    @Html.DisplayFor(modelItem => item.Skloniste.Naziv)
-                </div>
-            </div>
-        </div>
-        <div>
-            <br />
-            <br />
-            <br />
+            <span onclick="this.parentElement.style.display='none'" class="closebtn">x</span>
 
-            <div style="        text-align: center;
-
-        margin-bottom: 20px;">
+            <p> @Html.Raw(item.Content)</p>
+            <p> @Html.Raw(item.Datum)</p>
+            <p> @Html.Raw(item.Skloniste.Naziv)</p>
+            <p>
                 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                 {
                     <input onMouseOver="this.style.color='#8ea0d1'"
-                           onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;" type="button" title="Uredi podatke" value="Uredi podatke" onclick="location.href='@Url.Action("Edit", "PostSklonista", new { id = item.Id })'" />
-                }
+                           onMouseOut="this.style.color='white'"
+                           type="button"
+                           title="Uredi podatke"
+                           value="Uredi podatke"
+                           onclick="location.href='@Url.Action("Edit", "PostSklonista",
+new { id = item.Id })'" />
 
 
-                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                {
                     <input onMouseOver="this.style.color='#8ea0d1'"
-                           onMouseOut="this.style.color='white'" style="background-color:dodgerblue;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;" type="button" title="Izbriši" value="Izbriši" onclick="location.href='@Url.Action("Delete", "PostSklonista", new { id = item.Id })'" />
+                           onMouseOut="this.style.color='white'"
+                           type="button"
+                           title="Izbriši"
+                           value="Izbriši"
+                           onclick="location.href='@Url.Action("Delete", "PostSklonista",
+                            new { id = item.Id })'" />
                 }
-            </div>
-            <br /><br />
+            </p>
         </div>
+
+
+
     }
-    <br />
-    <br />
-    <br />
 
 </div>
+
+

@@ -84,13 +84,11 @@ namespace PetApp.Controllers
                     var returnvaluesearch = from l in _context.Ljubimac
                                             where l.SklonisteId == d.Id
                                             select l;
-
                     return View(returnvaluesearch);
                 }
             }
             _context.Ljubimac.Include(l => l.Grad);
             var listgradova = from d in _context.Ljubimac
-
                               select d;
             var listagradova2 = new List<String>();
             foreach (var f in listgradova)
@@ -101,18 +99,27 @@ namespace PetApp.Controllers
             var g = new SelectList(listagradova2.ToList(), SearchString4);
             ViewData["Gradovi"] = g;
             SearchString4 = (String)g.SelectedValue;
-
-
+            var list = new List<Ljubimac>();
+            var listgradovailj = from d in _context.Ljubimac
+                                 where d.Grad==SearchString4
+                              select d;
+            var count = listgradovailj.Count();
             foreach (var d in _context.Ljubimac)
             {
                 if (d.Grad == SearchString4)
                 {
-                    var list = new List<Ljubimac>();
+                   
                     list.Add(d);
 
-                    return View(list);
+                    if (list.Count ==count)
+                    {
+                        return View(list);
+                    }
+                  
                 }
+               
             }
+           
             var ljubimcisearch2 = from m in _context.Ljubimac
                                   select m;
 
@@ -175,12 +182,12 @@ namespace PetApp.Controllers
             var g = new SelectList(listagradova2.ToList(), SearchString4);
             ViewData["Gradovi"] = g;
             SearchString4 = (String)g.SelectedValue;
-
+            var list = new List<Ljubimac>();
             foreach (var d in _context.Ljubimac)
             {
                 if (d.Grad == SearchString4 && d.SklonisteId == null)
                 {
-                    var list = new List<Ljubimac>();
+                    
                     list.Add(d);
                     if (list.Count != 0)
                         return View(list);

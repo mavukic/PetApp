@@ -159,7 +159,44 @@ namespace PetApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["LjubimacId"] = new SelectList(_context.Ljubimac, "Id", "Ime", posvajatelj.LjubimacId);
+            var list = new List<Ljubimac>();
+            var listpos = new List<Posvajatelj>();
+            var listlj = new List<Ljubimac>();
+            foreach (var d in _context.Ljubimac)
+            {
+                list.Add(d);
+
+            }
+            foreach (var d in _context.Posvajatelj)
+            {
+                listpos.Add(d);
+
+            }
+
+            foreach (var b in list)
+            {
+                if (listpos.Count != 0)
+                {
+                    foreach (var c in listpos)
+                    {
+                        if (!listpos.Exists(x => x.LjubimacId == b.Id) && b.SklonisteId != null)
+                        {
+                            if (!listlj.Contains(b))
+                                listlj.Add(b);
+                        }
+
+
+
+                    }
+                }
+                else
+                {
+                    if (b.SklonisteId != null)
+                        if (!listlj.Contains(b))
+                            listlj.Add(b);
+                }
+            }
+            ViewData["LjubimacId"] = new SelectList(listlj, "Id", "Ime");
             return View(posvajatelj);
         }
 

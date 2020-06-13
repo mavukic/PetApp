@@ -183,16 +183,27 @@ namespace PetApp.Controllers
             ViewData["Gradovi"] = g;
             SearchString4 = (String)g.SelectedValue;
             var list = new List<Ljubimac>();
+            var listgradovailj = from d in _context.Ljubimac
+                                 where d.Grad == SearchString4 && d.SklonisteId == null
+                                 select d;
+            var count = listgradovailj.Count();
             foreach (var d in _context.Ljubimac)
             {
-                if (d.Grad == SearchString4 && d.SklonisteId == null)
+                if (d.Grad == SearchString4&&d.SklonisteId==null)
                 {
-                    
+
                     list.Add(d);
-                    if (list.Count != 0)
+
+                    if (list.Count == count)
+                    {
                         return View(list);
+                    }
+                   
+
                 }
+
             }
+
             var applicationDbContext = _context.Ljubimac.Include(l => l.Skloniste).Where(l => l.SklonisteId == null);
             return View(await applicationDbContext.ToListAsync());
         }
